@@ -1,0 +1,177 @@
+[gd_scene load_steps=24 format=1]
+
+[ext_resource path="res://Scripts/CharacterBehaviour.gd" type="Script" id=1]
+[ext_resource path="res://Joshep/Taunt/jojo_taunt_1.png" type="Texture" id=2]
+[ext_resource path="res://Joshep/Falling/jojo_fall_1.png" type="Texture" id=3]
+[ext_resource path="res://Joshep/Falling/jojo_fall_2.png" type="Texture" id=4]
+[ext_resource path="res://Joshep/jojo_idle1_1.png" type="Texture" id=5]
+[ext_resource path="res://Joshep/jojo_idle1_2.png" type="Texture" id=6]
+[ext_resource path="res://Joshep/Land/jojo_land_1.png" type="Texture" id=7]
+[ext_resource path="res://Joshep/Land/jojo_land_2.png" type="Texture" id=8]
+[ext_resource path="res://Joshep/Taunt/jojo_taunt_2.png" type="Texture" id=9]
+[ext_resource path="res://Joshep/Taunt/jojo_taunt_3.png" type="Texture" id=10]
+[ext_resource path="res://Joshep/Taunt/jojo_taunt_4.png" type="Texture" id=11]
+[ext_resource path="res://Joshep/Taunt/jojo_taunt_6.png" type="Texture" id=12]
+[ext_resource path="res://Joshep/Taunt/jojo_taunt_5.png" type="Texture" id=13]
+[ext_resource path="res://Joshep/Walk/jojo_run_1.png" type="Texture" id=14]
+[ext_resource path="res://Joshep/Walk/jojo_run_2.png" type="Texture" id=15]
+[ext_resource path="res://Sounds/bitch.wav" type="Sample" id=16]
+
+[sub_resource type="CapsuleShape2D" id=1]
+
+custom_solver_bias = 0.0
+radius = 10.0
+height = 20.0
+
+[sub_resource type="Animation" id=2]
+
+resource/name = "Fall"
+length = 1.0
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = { "times":FloatArray( 0, 0.5 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ ExtResource( 3 ), ExtResource( 4 ) ] }
+
+[sub_resource type="Animation" id=3]
+
+length = 1.0
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = { "times":FloatArray( 0, 0.5 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ ExtResource( 5 ), ExtResource( 6 ) ] }
+
+[sub_resource type="Animation" id=4]
+
+resource/name = "Land"
+length = 0.5
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = { "times":FloatArray( 0, 0.1, 0.4 ), "transitions":FloatArray( 1, 1, 1 ), "update":0, "values":[ ExtResource( 7 ), ExtResource( 8 ), ExtResource( 7 ) ] }
+
+[sub_resource type="Animation" id=5]
+
+length = 1.5
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = { "times":FloatArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 1, 1.1, 1.2, 1.3 ), "transitions":FloatArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ), "update":0, "values":[ ExtResource( 2 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 11 ), ExtResource( 10 ), ExtResource( 9 ) ] }
+
+[sub_resource type="Animation" id=6]
+
+length = 0.5
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = { "times":FloatArray( 0, 0.3 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ ExtResource( 14 ), ExtResource( 15 ) ] }
+
+[sub_resource type="SampleLibrary" id=7]
+
+samples/bitch = { "db":0.0, "pitch":1.0, "sample":ExtResource( 16 ) }
+
+[node name="Player" type="KinematicBody2D"]
+
+transform/pos = Vector2( 432, 52 )
+input/pickable = false
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, -0.970612, -2.26473 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+collision/margin = 0.08
+script/script = ExtResource( 1 )
+controller = 0
+
+[node name="Sprite" type="Sprite" parent="."]
+
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+transform/pos = Vector2( -0.970612, -2.26473 )
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
+[node name="RayCast_Left" type="RayCast2D" parent="."]
+
+visibility/visible = false
+transform/pos = Vector2( -5.99564, 14.989 )
+enabled = true
+cast_to = Vector2( 0, 5 )
+layer_mask = 1
+type_mask = 15
+
+[node name="RayCast_Right" type="RayCast2D" parent="."]
+
+visibility/visible = false
+transform/pos = Vector2( 1.3587, 15.3046 )
+enabled = true
+cast_to = Vector2( 0, 5 )
+layer_mask = 1
+type_mask = 15
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/Fall = SubResource( 2 )
+anims/Idle = SubResource( 3 )
+anims/Land = SubResource( 4 )
+anims/Taunt = SubResource( 5 )
+anims/Walk = SubResource( 6 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = ""
+
+[node name="SamplePlayer2D" type="SamplePlayer2D" parent="."]
+
+visibility/visible = false
+params/volume_db = 0.0
+params/pitch_scale = 1.0
+params/attenuation/min_distance = 1.0
+params/attenuation/max_distance = 2048.0
+params/attenuation/distance_exp = 1.0
+config/polyphony = 1
+config/samples = SubResource( 7 )
+config/pitch_random = 0.0
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+visibility/visible = false
+transform/pos = Vector2( 8.4248, 1.31737 )
+anchor_mode = 1
+rotating = false
+current = true
+zoom = Vector2( 0.5, 0.5 )
+limit/left = -10000000
+limit/top = -10000000
+limit/right = 10000000
+limit/bottom = 10000000
+drag_margin/h_enabled = true
+drag_margin/v_enabled = true
+smoothing/enable = false
+smoothing/speed = 5.0
+drag_margin/left = 0.2
+drag_margin/top = 0.2
+drag_margin/right = 0.2
+drag_margin/bottom = 0.2
+
+
