@@ -1,0 +1,57 @@
+JoJo's Battle Chicken Tendicy V0.1
+
+
+
+/////KEYBOARD CONTROLS/////	
+
+Player 1
+Left: 'A' Right: 'D'
+Down: 'S'
+Jump: 'G'
+Taunt: 'Q'
+
+Player 2
+Left: 'J' Right: 'L'
+Down: 'K'
+Jump: ']'
+Taunt: 'P'
+
+
+
+
+//// ROAD MAP/ TODO /////
++ Add
+- Remove
+* Fix
+
+V0.2
++Abillity to grab ledge
++Wall Jump
+*JoVo Sprites
++*Caslte Stage
++Sound Effects
++Particel Effect
+
+V0.3
++Clacker Volleys
+  +Weapon Charging
+  +Weapon Throwing
+  +Clacker Volley's Behaviour
++HurtBoxes
++HitBoxes
++?Training Stage
+
+V0.4
++Alt Costumes/Pallets
++Menu
++Game Modes
+ +Free for All
+ +Teams
+ +Stamina
++New Stage
+
+V0.5
++Hold a Horse
+ +Hold a Horse Stage
++Dinko
+ +Dinko Stage
