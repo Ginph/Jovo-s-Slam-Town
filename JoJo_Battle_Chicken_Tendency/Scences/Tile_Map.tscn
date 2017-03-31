@@ -1,22 +1,11 @@
-[gd_scene load_steps=25 format=1]
+[gd_scene load_steps=14 format=1]
 
 [ext_resource path="res://Sprites/level_spritesheet.png" type="Texture" id=1]
-[ext_resource path="res://Sprites/level_block_11.png" type="Texture" id=2]
-[ext_resource path="res://Sprites/level_block_4.png" type="Texture" id=3]
-[ext_resource path="res://Sprites/level_block_3.png" type="Texture" id=4]
-[ext_resource path="res://Sprites/level_block_2.png" type="Texture" id=5]
-[ext_resource path="res://Sprites/level_block_12.png" type="Texture" id=6]
-[ext_resource path="res://Sprites/level_block_13.png" type="Texture" id=7]
-[ext_resource path="res://Sprites/level_block_14.png" type="Texture" id=8]
-[ext_resource path="res://Sprites/level_block_9.png" type="Texture" id=9]
-[ext_resource path="res://Sprites/level_block_8.png" type="Texture" id=10]
-[ext_resource path="res://Sprites/level_block_10.png" type="Texture" id=11]
-[ext_resource path="res://Sprites/level_block_1.png" type="Texture" id=12]
 
-[sub_resource type="ConvexPolygonShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
-points = Vector2Array( -7.98904, -3.01472, 8.01913, -2.98491, 8.00423, 3.02188, -8.00395, 3.00698 )
+extents = Vector2( 8.69719, 3.27972 )
 
 [sub_resource type="ConvexPolygonShape2D" id=2]
 
@@ -75,32 +64,37 @@ points = Vector2Array( -16, -16, 0, -16, 0, 0, -8, 0, -16, -8 )
 
 [node name="Node" type="Node"]
 
-[node name="Light_Platform_Right" type="Sprite" parent="."]
+[node name="Light_PlatformAAAA" type="Sprite" parent="."]
 
 transform/pos = Vector2( 72, 72 )
+z/z = -1
 texture = ExtResource( 1 )
 region = true
 region_rect = Rect2( 32, 32, 16, 16 )
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Light_Platform_Right"]
+[node name="StaticBody2D" type="StaticBody2D" parent="Light_PlatformAAAA"]
 
+transform/pos = Vector2( 0, 0.104675 )
 input/pickable = false
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/transform = Matrix32( 0.921446, 0, 0, 1, -0.0255298, 0 )
 shapes/0/trigger = false
-collision/layers = 1
-collision/mask = 1
+collision/layers = 16
+collision/mask = 15
+one_way_collision/direction = Vector2( 0, 1 )
+one_way_collision/max_depth = 6.0
 constant_linear_velocity = Vector2( 0, 0 )
 constant_angular_velocity = 0.0
 friction = 1.0
 bounce = 0.0
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Light_Platform_Right/StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Light_PlatformAAAA/StaticBody2D"]
 
-build_mode = 0
-polygon = Vector2Array( -7.98904, -3.01472, 8.01913, -2.98491, 8.00423, 3.02188, -8.00395, 3.00698 )
-shape_range = Vector2( 0, 0 )
+transform/pos = Vector2( -0.0255298, 0 )
+transform/scale = Vector2( 0.921446, 1 )
+shape = SubResource( 1 )
 trigger = false
+_update_shape_index = 0
 
 [node name="Light_Platform_Middle" type="Sprite" parent="."]
 
@@ -117,6 +111,7 @@ shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
+one_way_collision/direction = Vector2( 0, 1 )
 constant_linear_velocity = Vector2( 0, 0 )
 constant_angular_velocity = 0.0
 friction = 1.0
@@ -144,6 +139,7 @@ shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
+one_way_collision/direction = Vector2( 0, 1 )
 constant_linear_velocity = Vector2( 0, 0 )
 constant_angular_velocity = 0.0
 friction = 1.0
@@ -159,7 +155,9 @@ trigger = false
 [node name="level_block_11" type="Sprite" parent="."]
 
 transform/pos = Vector2( 136, 40 )
-texture = ExtResource( 2 )
+texture = ExtResource( 1 )
+region = true
+region_rect = Rect2( 80, 16, 16, 16 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="level_block_11"]
 
@@ -184,7 +182,9 @@ trigger = false
 [node name="level_block_4" type="Sprite" parent="."]
 
 transform/pos = Vector2( 40, 40 )
-texture = ExtResource( 3 )
+texture = ExtResource( 1 )
+region = true
+region_rect = Rect2( 16, 16, 16, 16 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="level_block_4"]
 
@@ -209,7 +209,9 @@ trigger = false
 [node name="Edge_Right_Light" type="Sprite" parent="."]
 
 transform/pos = Vector2( 72, 8 )
-texture = ExtResource( 4 )
+texture = ExtResource( 1 )
+region = true
+region_rect = Rect2( 32, 0, 16, 16 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Edge_Right_Light"]
 
@@ -234,7 +236,9 @@ trigger = false
 [node name="Block_Light" type="Sprite" parent="."]
 
 transform/pos = Vector2( 40, 8 )
-texture = ExtResource( 5 )
+texture = ExtResource( 1 )
+region = true
+region_rect = Rect2( 16, 0, 16, 16 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Block_Light"]
 
@@ -259,10 +263,10 @@ trigger = false
 [node name="Dark_Platform_Left" type="Sprite" parent="."]
 
 transform/pos = Vector2( 104, 72 )
-texture = ExtResource( 6 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Dark_Platform_Left"]
 
+transform/pos = Vector2( -0.0531235, 0.315559 )
 input/pickable = false
 collision/layers = 1
 collision/mask = 1
@@ -274,7 +278,6 @@ bounce = 0.0
 [node name="level_block_13" type="Sprite" parent="."]
 
 transform/pos = Vector2( 136, 72 )
-texture = ExtResource( 7 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="level_block_13"]
 
@@ -289,7 +292,6 @@ bounce = 0.0
 [node name="level_block_14" type="Sprite" parent="."]
 
 transform/pos = Vector2( 168, 72 )
-texture = ExtResource( 8 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="level_block_14"]
 
@@ -307,7 +309,9 @@ bounce = 0.0
 [node name="Block_Dark" type="Sprite" parent="."]
 
 transform/pos = Vector2( 136, 8 )
-texture = ExtResource( 9 )
+texture = ExtResource( 1 )
+region = true
+region_rect = Rect2( 80, 0, 16, 16 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Block_Dark"]
 
@@ -332,7 +336,9 @@ trigger = false
 [node name="EdgeBlock_Left_Dark" type="Sprite" parent="."]
 
 transform/pos = Vector2( 104, 8 )
-texture = ExtResource( 10 )
+texture = ExtResource( 1 )
+region = true
+region_rect = Rect2( 64, 0, 16, 16 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="EdgeBlock_Left_Dark"]
 
@@ -357,7 +363,9 @@ trigger = false
 [node name="EdgeBlock_Right_Dark" type="Sprite" parent="."]
 
 transform/pos = Vector2( 168, 8 )
-texture = ExtResource( 11 )
+texture = ExtResource( 1 )
+region = true
+region_rect = Rect2( 96, 0, 16, 16 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="EdgeBlock_Right_Dark"]
 
@@ -382,7 +390,7 @@ trigger = false
 [node name="EdgeBlock_Left_Light" type="Sprite" parent="."]
 
 transform/pos = Vector2( 8, 8 )
-texture = ExtResource( 12 )
+texture = ExtResource( 1 )
 region = true
 region_rect = Rect2( 0, 0, 16, 16 )
 
