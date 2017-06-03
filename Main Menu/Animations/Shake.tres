@@ -1,0 +1,19 @@
+[gd_resource type="Animation" format=1]
+
+[resource]
+
+resource/name = "Shake"
+length = 3.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Titlename:transform/rotation")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.6, 1.2, 1.8, 2.4 ),
+"transitions": FloatArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 23.8753 ), Vector3( 0, 0, 11.4008 ), Vector3( 0, 0, 27.8509 ), Vector3( 0, 0, 40.2467 ), Vector3( 0, 0, 30.4453 ) ]
+}
+
