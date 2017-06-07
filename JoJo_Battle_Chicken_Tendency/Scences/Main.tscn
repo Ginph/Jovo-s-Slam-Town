@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=1]
+[gd_scene load_steps=44 format=1]
 
 [ext_resource path="res://Scences/Match.gd" type="Script" id=1]
 [ext_resource path="res://Scences/Player.tscn" type="PackedScene" id=2]
@@ -8,43 +8,133 @@
 [ext_resource path="res://Textures/TestLevel/JoJo_background_3.png" type="Texture" id=6]
 [ext_resource path="res://Textures/TestLevel/JoJo_background_1.png" type="Texture" id=7]
 [ext_resource path="res://Scences/gui.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Scripts/Camera_Behaviour.gd" type="Script" id=9]
-[ext_resource path="res://Scripts/FPS_Label.gd" type="Script" id=10]
-[ext_resource path="res://Scripts/BlastZones.gd" type="Script" id=11]
-[ext_resource path="res://Sprites/level_spritesheet.png" type="Texture" id=12]
-[ext_resource path="res://Characters/Joshep/Sprites/jojo_jumpblue.png" type="Texture" id=13]
-[ext_resource path="res://Models/skybox_sphere.msh" type="Mesh" id=14]
-[ext_resource path="res://Textures/pagetemp.png" type="Texture" id=15]
-[ext_resource path="res://Textures/themeyes.png" type="Texture" id=16]
-[ext_resource path="res://Textures/tri.png" type="Texture" id=17]
-[ext_resource path="res://Textures/tress.png" type="Texture" id=18]
+[ext_resource path="res://Textures/GUI/321Sprites8.png" type="Texture" id=9]
+[ext_resource path="res://Textures/GUI/321Sprites5.png" type="Texture" id=10]
+[ext_resource path="res://Textures/GUI/321Sprites6.png" type="Texture" id=11]
+[ext_resource path="res://Textures/GUI/321Sprites7.png" type="Texture" id=12]
+[ext_resource path="res://Sprites/winner.png" type="Texture" id=13]
+[ext_resource path="res://Scripts/Camera_Behaviour.gd" type="Script" id=14]
+[ext_resource path="res://Scripts/FPS_Label.gd" type="Script" id=15]
+[ext_resource path="res://Scripts/BlastZones.gd" type="Script" id=16]
+[ext_resource path="res://Sounds/KO.smp" type="Sample" id=17]
+[ext_resource path="res://Sprites/Cloud.png" type="Texture" id=18]
+[ext_resource path="res://Sprites/level_spritesheet.png" type="Texture" id=19]
+[ext_resource path="res://Characters/Joshep/Sprites/jojo_jumpblue.png" type="Texture" id=20]
+[ext_resource path="res://Models/skybox_sphere.msh" type="Mesh" id=21]
+[ext_resource path="res://Textures/pagetemp.png" type="Texture" id=22]
+[ext_resource path="res://Textures/themeyes.png" type="Texture" id=23]
+[ext_resource path="res://Textures/tri.png" type="Texture" id=24]
+[ext_resource path="res://Textures/tress.png" type="Texture" id=25]
+[ext_resource path="res://Sounds/321Go.smp" type="Sample" id=26]
+[ext_resource path="res://Sounds/P1.smp" type="Sample" id=27]
+[ext_resource path="res://Sounds/P2.smp" type="Sample" id=28]
+[ext_resource path="res://Sounds/defeated.smp" type="Sample" id=29]
+[ext_resource path="res://Sounds/defeated.wav" type="Sample" id=30]
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="Animation" id=1]
 
-custom_solver_bias = 0.0
-extents = Vector2( 30.8643, 10 )
+resource/name = "CountDown"
+length = 4.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprite:texture")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 1, 2, 3 ),
+"transitions": FloatArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 9 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("sprite:visibility/visible")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = {
+"times": FloatArray( 0, 4 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="Animation" id=2]
 
-custom_solver_bias = 0.0
-extents = Vector2( 27.9301, 10 )
+resource/name = "WinnerAni"
+length = 1.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprite:texture")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0.1 ),
+"transitions": FloatArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 13 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("sprite:visibility/visible")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = {
+"times": FloatArray( 0, 0.1 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("sprite:transform/scale")
+tracks/2/interp = 1
+tracks/2/imported = false
+tracks/2/keys = {
+"times": FloatArray( 0, 1 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.1, 0.1 ), Vector2( 1, 1 ) ]
+}
 
 [sub_resource type="RectangleShape2D" id=3]
 
 custom_solver_bias = 0.0
-extents = Vector2( 10, 34.1273 )
+extents = Vector2( 30.8643, 10 )
 
 [sub_resource type="RectangleShape2D" id=4]
 
 custom_solver_bias = 0.0
-extents = Vector2( 10, 40.7315 )
+extents = Vector2( 27.9301, 10 )
 
 [sub_resource type="RectangleShape2D" id=5]
 
 custom_solver_bias = 0.0
+extents = Vector2( 10, 34.1273 )
+
+[sub_resource type="RectangleShape2D" id=6]
+
+custom_solver_bias = 0.0
+extents = Vector2( 10, 40.7315 )
+
+[sub_resource type="SampleLibrary" id=7]
+
+samples/KO = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 17 )
+}
+
+[sub_resource type="ColorRamp" id=8]
+
+offsets = FloatArray( 0, 0.830986, 1 )
+colors = ColorArray( 1, 1, 1, 0.638314, 1, 1, 1, 0.736157, 1, 1, 1, 0 )
+
+[sub_resource type="RectangleShape2D" id=9]
+
+custom_solver_bias = 0.0
 extents = Vector2( 61.8983, 10.1136 )
 
-[sub_resource type="FixedMaterial" id=6]
+[sub_resource type="FixedMaterial" id=10]
 
 flags/visible = true
 flags/double_sided = false
@@ -72,7 +162,7 @@ params/shader_param = 0.5
 params/glow = 0.3
 params/point_size = 1.0
 uv_xform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-textures/diffuse = ExtResource( 17 )
+textures/diffuse = ExtResource( 24 )
 textures/diffuse_tc = 0
 textures/detail_tc = 0
 textures/specular_tc = 0
@@ -82,9 +172,8 @@ textures/glow_tc = 0
 textures/normal_tc = 0
 textures/shade_param_tc = 0
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=11]
 
-resource/name = "Things"
 length = 30.0
 loop = true
 step = 0.1
@@ -129,7 +218,7 @@ tracks/3/keys = {
 "values": [ false, true ]
 }
 
-[sub_resource type="FixedMaterial" id=8]
+[sub_resource type="FixedMaterial" id=12]
 
 flags/visible = true
 flags/double_sided = false
@@ -157,7 +246,7 @@ params/shader_param = 0.5
 params/glow = 0
 params/point_size = 1.0
 uv_xform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-textures/diffuse = ExtResource( 18 )
+textures/diffuse = ExtResource( 25 )
 textures/diffuse_tc = 0
 textures/detail_tc = 0
 textures/specular_tc = 0
@@ -167,10 +256,44 @@ textures/glow_tc = 0
 textures/normal_tc = 0
 textures/shade_param_tc = 0
 
+[sub_resource type="SampleLibrary" id=13]
+
+samples/321Go = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 26 )
+}
+samples/P1 = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 27 )
+}
+samples/P2 = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 28 )
+}
+samples/defeated = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 29 )
+}
+samples/wav = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 30 )
+}
+
 [node name="Node" type="Node"]
 
 script/script = ExtResource( 1 )
-spawnpoints = Vector2Array( 200, 292, 500, 292, 0, 0, 0, 0 )
+spawnpoints = Vector2Array( 250, 291, 500, 291 )
+team_num = [ 0, 1 ]
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 
@@ -206,6 +329,7 @@ editor/display_folded = true
 transform/pos = Vector2( 400, 52 )
 controller = 1
 flag = Color( 1, 0.65625, 0.65625, 1 )
+team = 1
 Input_Up = "Player2_Up"
 Input_Down = "Player2_Down"
 Input_Left = "Player2_Left"
@@ -356,6 +480,39 @@ texture = ExtResource( 4 )
 
 [node name="gui" parent="." instance=ExtResource( 8 )]
 
+[node name="Go" type="Control" parent="gui"]
+
+anchor/left = 3
+anchor/top = 3
+anchor/right = 3
+anchor/bottom = 3
+rect/scale = Vector2( 2, 2 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 3
+size_flags/vertical = 3
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 0.0
+margin/bottom = 0.0
+
+[node name="sprite" type="Sprite" parent="gui/Go"]
+
+visibility/visible = false
+texture = ExtResource( 9 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="gui/Go"]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/CountDown = SubResource( 1 )
+anims/WinnerAni = SubResource( 2 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = "CountDown"
+
 [node name="Camera2D" type="Camera2D" parent="."]
 
 editor/display_folded = true
@@ -376,7 +533,7 @@ drag_margin/left = 0.2
 drag_margin/top = 0.2
 drag_margin/right = 0.2
 drag_margin/bottom = 0.2
-script/script = ExtResource( 9 )
+script/script = ExtResource( 14 )
 limit_left = -400
 limit_right = 1100
 limit_up = -69
@@ -396,14 +553,14 @@ margin/bottom = 14.0
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-script/script = ExtResource( 10 )
+script/script = ExtResource( 15 )
 
 [node name="OutOfBounds" type="Node2D" parent="." groups=[
 "OutOfBounds",
 ]]
 
 editor/display_folded = true
-script/script = ExtResource( 11 )
+script/script = ExtResource( 16 )
 
 [node name="StaticBody2D" type="Node2D" parent="OutOfBounds" groups=[
 "OutOfBounds",
@@ -414,7 +571,7 @@ script/script = ExtResource( 11 )
 transform/pos = Vector2( 406.034, -428.356 )
 transform/scale = Vector2( 33.9082, 6.11889 )
 input/pickable = true
-shapes/0/shape = SubResource( 1 )
+shapes/0/shape = SubResource( 3 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
@@ -425,7 +582,7 @@ collision/mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="OutOfBounds/StaticBody2D/Blast_Zone_Top"]
 
-shape = SubResource( 1 )
+shape = SubResource( 3 )
 trigger = false
 _update_shape_index = 0
 
@@ -434,7 +591,7 @@ _update_shape_index = 0
 transform/pos = Vector2( 396.599, 1190.93 )
 transform/scale = Vector2( 37.1339, 6.84459 )
 input/pickable = true
-shapes/0/shape = SubResource( 2 )
+shapes/0/shape = SubResource( 4 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
@@ -445,7 +602,7 @@ collision/mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="OutOfBounds/StaticBody2D/Blast_Zone_Bottom"]
 
-shape = SubResource( 2 )
+shape = SubResource( 4 )
 trigger = false
 _update_shape_index = 0
 
@@ -454,7 +611,7 @@ _update_shape_index = 0
 transform/pos = Vector2( -697.971, 338.761 )
 transform/scale = Vector2( 6.50593, 20.6575 )
 input/pickable = true
-shapes/0/shape = SubResource( 3 )
+shapes/0/shape = SubResource( 5 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1.04612, 0.428764, 1.57089 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
@@ -467,7 +624,7 @@ collision/mask = 3
 
 transform/pos = Vector2( 0.428764, 1.57089 )
 transform/scale = Vector2( 1, 1.04612 )
-shape = SubResource( 3 )
+shape = SubResource( 5 )
 trigger = false
 _update_shape_index = 0
 
@@ -476,7 +633,7 @@ _update_shape_index = 0
 transform/pos = Vector2( 1521.99, 369.092 )
 transform/scale = Vector2( 6.07911, 17.8569 )
 input/pickable = true
-shapes/0/shape = SubResource( 4 )
+shapes/0/shape = SubResource( 6 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
@@ -487,15 +644,54 @@ collision/mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="OutOfBounds/StaticBody2D/Blast_Zone_Right"]
 
-shape = SubResource( 4 )
+shape = SubResource( 6 )
 trigger = false
 _update_shape_index = 0
 
+[node name="SamplePlayer2D" type="SamplePlayer2D" parent="OutOfBounds"]
+
+params/volume_db = 0.0
+params/pitch_scale = 1.0
+params/attenuation/min_distance = 1.0
+params/attenuation/max_distance = 2048.0
+params/attenuation/distance_exp = 1.0
+config/polyphony = 1
+config/samples = SubResource( 7 )
+config/pitch_random = 0.0
+
+[node name="Particles2D" type="Particles2D" parent="OutOfBounds"]
+
+config/amount = 120
+config/lifetime = 3.0
+config/emitting = false
+config/process_mode = 1
+config/local_space = false
+config/texture = ExtResource( 18 )
+params/direction = 0.0
+params/spread = 30.0
+params/linear_velocity = 1000.0
+params/spin_velocity = 2.0
+params/orbit_velocity = 0.0
+params/gravity_direction = 0.0
+params/gravity_strength = 0.0
+params/radial_accel = 0.0
+params/tangential_accel = 0.0
+params/damping = 0.0
+params/initial_angle = 0.0
+params/initial_size = 1.0
+params/final_size = 8.0
+params/hue_variation = 0.0
+params/anim_speed_scale = 1.0
+params/anim_initial_pos = 0.0
+randomness/spin_velocity = 0.05
+color/color_ramp = SubResource( 8 )
+
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
+editor/display_folded = true
 transform/pos = Vector2( 285.361, 209.303 )
 input/pickable = false
-shapes/0/shape = SubResource( 5 )
+shapes/0/shape = SubResource( 9 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, -2.40225, 6.47356 )
 shapes/0/trigger = false
 collision/layers = 2048
@@ -510,7 +706,7 @@ bounce = 0.0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 
 transform/pos = Vector2( -2.40225, 6.47356 )
-shape = SubResource( 5 )
+shape = SubResource( 9 )
 trigger = false
 _update_shape_index = 0
 
@@ -518,15 +714,16 @@ _update_shape_index = 0
 
 transform/pos = Vector2( -2.07335, 6.61885 )
 transform/scale = Vector2( 7.75787, 3.33261 )
-texture = ExtResource( 12 )
+texture = ExtResource( 19 )
 region = true
 region_rect = Rect2( 16, 32, 16, 16 )
 
 [node name="StaticBody2D1" type="StaticBody2D" parent="."]
 
+editor/display_folded = true
 transform/pos = Vector2( 10, 580 )
 input/pickable = false
-shapes/0/shape = SubResource( 5 )
+shapes/0/shape = SubResource( 9 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, -2.40225, 6.47356 )
 shapes/0/trigger = false
 collision/layers = 2048
@@ -541,7 +738,7 @@ bounce = 0.0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D1"]
 
 transform/pos = Vector2( -2.40225, 6.47356 )
-shape = SubResource( 5 )
+shape = SubResource( 9 )
 trigger = false
 _update_shape_index = 0
 
@@ -549,15 +746,16 @@ _update_shape_index = 0
 
 transform/pos = Vector2( -2.07335, 6.61885 )
 transform/scale = Vector2( 7.75787, 3.33261 )
-texture = ExtResource( 12 )
+texture = ExtResource( 19 )
 region = true
 region_rect = Rect2( 16, 32, 16, 16 )
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="."]
 
+editor/display_folded = true
 transform/pos = Vector2( 750, 580 )
 input/pickable = false
-shapes/0/shape = SubResource( 5 )
+shapes/0/shape = SubResource( 9 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, -2.40225, 6.47356 )
 shapes/0/trigger = false
 collision/layers = 2048
@@ -572,7 +770,7 @@ bounce = 0.0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
 
 transform/pos = Vector2( -2.40225, 6.47356 )
-shape = SubResource( 5 )
+shape = SubResource( 9 )
 trigger = false
 _update_shape_index = 0
 
@@ -580,14 +778,14 @@ _update_shape_index = 0
 
 transform/pos = Vector2( -2.07335, 6.61885 )
 transform/scale = Vector2( 7.75787, 3.33261 )
-texture = ExtResource( 12 )
+texture = ExtResource( 19 )
 region = true
 region_rect = Rect2( 16, 32, 16, 16 )
 
 [node name="jojo_jumpblue" type="Sprite" parent="."]
 
 transform/pos = Vector2( -171.507, 37.1047 )
-texture = ExtResource( 13 )
+texture = ExtResource( 20 )
 
 [node name="OmniLight" type="OmniLight" parent="."]
 
@@ -663,7 +861,7 @@ geometry/depth_scale = false
 geometry/visible_in_all_rooms = false
 geometry/use_baked_light = false
 geometry/baked_light_tex_id = 0
-mesh/mesh = ExtResource( 14 )
+mesh/mesh = ExtResource( 21 )
 mesh/skeleton = NodePath("..")
 material/0 = null
 
@@ -686,7 +884,7 @@ geometry/depth_scale = false
 geometry/visible_in_all_rooms = false
 geometry/use_baked_light = false
 geometry/baked_light_tex_id = 0
-mesh/mesh = ExtResource( 14 )
+mesh/mesh = ExtResource( 21 )
 mesh/skeleton = NodePath("..")
 material/0 = null
 
@@ -923,7 +1121,7 @@ axis = 2
 flags/transparent = true
 flags/shaded = true
 flags/alpha_cut = 0
-texture = ExtResource( 15 )
+texture = ExtResource( 22 )
 vframes = 1
 hframes = 1
 frame = 0
@@ -960,7 +1158,7 @@ axis = 2
 flags/transparent = true
 flags/shaded = false
 flags/alpha_cut = 0
-texture = ExtResource( 16 )
+texture = ExtResource( 23 )
 vframes = 1
 hframes = 1
 frame = 0
@@ -997,7 +1195,7 @@ axis = 2
 flags/transparent = true
 flags/shaded = false
 flags/alpha_cut = 0
-texture = ExtResource( 16 )
+texture = ExtResource( 23 )
 vframes = 1
 hframes = 1
 frame = 0
@@ -1023,7 +1221,7 @@ geometry/depth_scale = false
 geometry/visible_in_all_rooms = false
 geometry/use_baked_light = false
 geometry/baked_light_tex_id = 0
-material = SubResource( 6 )
+material = SubResource( 10 )
 amount = 30
 emitting = true
 visibility = AABB( -4, -4, -4, 8, 8, 8 )
@@ -1077,7 +1275,7 @@ phase_3/color = Color( 0, 0, 0, 1 )
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/Things = SubResource( 7 )
+anims/Things = SubResource( 11 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
@@ -1102,7 +1300,7 @@ geometry/depth_scale = false
 geometry/visible_in_all_rooms = false
 geometry/use_baked_light = false
 geometry/baked_light_tex_id = 0
-material = SubResource( 8 )
+material = SubResource( 12 )
 amount = 64
 emitting = true
 visibility = AABB( -4, -4, -4, 8, 8, 8 )
@@ -1173,6 +1371,17 @@ projector = null
 operator = 0
 params/radius = 20.0
 params/attenuation = 1.0
+
+[node name="SamplePlayer2D" type="SamplePlayer2D" parent="."]
+
+params/volume_db = 0.0
+params/pitch_scale = 0.0
+params/attenuation/min_distance = 1.0
+params/attenuation/max_distance = 2048.0
+params/attenuation/distance_exp = 1.0
+config/polyphony = 1
+config/samples = SubResource( 13 )
+config/pitch_random = 0.0
 
 [connection signal="body_enter" from="OutOfBounds/StaticBody2D/Blast_Zone_Top" to="OutOfBounds" method="_on_Blast_Zone_Top_body_enter"]
 

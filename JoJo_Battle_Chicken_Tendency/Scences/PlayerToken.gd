@@ -17,6 +17,7 @@ func search():
 
 func _fixed_process(delta):
 	#print("WAAA")
+	
 	get_node("Percentage").set_text(String(get_node(Who).damage))
 	get_node("Stock").set_text(String(get_node(Who).stocks))
 	pass
