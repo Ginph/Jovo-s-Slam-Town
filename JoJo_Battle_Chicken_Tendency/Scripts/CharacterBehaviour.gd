@@ -2,6 +2,7 @@ extends KinematicBody2D
 
 export var controller = 0
 export var flag = Color()
+export var team = 0
 
 const gravity = 300
 var velocity = Vector2()
@@ -110,9 +111,13 @@ func _fixed_process(delta):
 
 	if(facing_Right):
 		facing_Right_Num = 1
+		raycast_side.set_cast_to(Vector2((facing_Right_Num * 5),0))
+		raycast_side.set_pos(Vector2((facing_Right_Num * 9),0))
 	else:
 		facing_Right_Num = -1
-
+		raycast_side.set_cast_to(Vector2((facing_Right_Num * 5),0))
+		raycast_side.set_pos(Vector2((facing_Right_Num * 9),0))
+		
 	state.update(delta)
 
 	size = (10 / clack_speed)
@@ -120,10 +125,10 @@ func _fixed_process(delta):
 	#Change rotation on Clackers
 	var clack_rot = get_node("Clackers").get_rot()
 	
-	if(clack_speed <= 0.1):
-		get_node("Clackers").set_texture(load("res://Characters/Joshep/Sprites/Clackers/clackers2_1.png"))
-	if(clack_speed > 0.2):
-		get_node("Clackers").set_texture(load("res://Characters/Joshep/Sprites/Clackers/Clackers3_1.png"))
+	#if(clack_speed <= 0.1):
+		#get_node("Clackers").set_texture(load("res://Characters/Joshep/Sprites/Clackers/clackers2_1.png"))
+	#if(clack_speed > 0.2):
+		#get_node("Clackers").set_texture(load("res://Characters/Joshep/Sprites/Clackers/Clackers3_1.png"))
 		
 	#Change 0.1 to clack_Speed
 	get_node("Clackers").set_rot(clack_rot + (clack_speed * facing_Right_Num))
@@ -298,6 +303,7 @@ func player_physics(var speed, delta, var input, var friction):
 
 		if(_get_state() == LAUNCH_STATE):
 			velocity = n.reflect(velocity)
+			get_node("SamplePlayer2D").play("Slam")
 		
 		if(rad2deg(acos(n.dot(Vector2(0, -1)))) < 40):
 			floor_velocity = get_collider_velocity()
@@ -306,14 +312,15 @@ func player_physics(var speed, delta, var input, var friction):
 			if(_get_state() != LAUNCH_STATE):
 				if(!raycast_left.is_colliding() && !raycast_right.is_colliding()):
 					#Check for Left
-					if(Axis.x < -0.5 && sides_value == 180):
-						facing_Right = false
-						_set_state(WALLSLIDE_STATE)
+					if(raycast_side.is_colliding()):
+						if(Axis.x < -0.5 && sides_value == 180):
+							facing_Right = false
+							_set_state(WALLSLIDE_STATE)
 					#Check for Right
-					if(Axis.x > 0.5 && sides_value == 0):
-						#print("Right")
-						facing_Right = true
-						_set_state(WALLSLIDE_STATE)
+						if(Axis.x > 0.5 && sides_value == 0):
+							#print("Right")
+							facing_Right = true
+							_set_state(WALLSLIDE_STATE)
 
 		if(force.x == 0 and get_travel().length() < 1 and abs(velocity.x) < 1 and get_collider_velocity() == Vector2()):
 			revert_motion()
@@ -445,10 +452,13 @@ func stockLoss():
 	
 	damage = 0
 	stocks -= 1
-		
-	if(stocks <= 0):
-		print("died")
 	
+	get_tree().get_root().get_node("Node").check_for_win()
+	
+	pass
+
+func play_sound(var name = "", var node = ""):
+	get_node(node).play(name)
 	pass
 
 # IDLE STATE -------------------------------------------------------
@@ -621,7 +631,7 @@ class Walk_State:
 			if(player.get_node("RayCast_Middle").is_colliding()):
 				player.leaned = false
 
-		if((player.Axis.x < 0.5) && (player.Axis.x > -0.5)):
+		if((player.Axis.x < 0.25) && (player.Axis.x > -0.25)):
 			player._set_state(player.IDLE_STATE);
 
 		player.check_lean()
@@ -668,15 +678,17 @@ class Jump_State:
 			player.velocity.x += ((player.Axis.x) * 5)
 			player.velocity.y = -200
 						
+			player.get_node("Vocals").play("Jump")
+						
 			if(((player.Axis.x < -0.1) && player.facing_Right) || ((player.Axis.x > 0.1) && (player.facing_Right == false))):
 				if(player.jump_count == 1):
-					player.get_node("Sprite").set_texture(load("res://Characters/Joshep/Sprites/jojo_jump_backwards.png"))
+					player.get_node("Sprite").set_texture(load("res://Characters/Joshep/CompetitiveColours/CoCo_Fallback.png"))
 				elif(player.jump_count == 0):
 					player.velocity.x = (player.velocity.x + (-player.facing_Right_Num * 30))
 					player.get_node("AnimationPlayer").play("Jump_Backwards_2")
 			else:
 				if(player.jump_count == 1):
-					player.get_node("Sprite").set_texture(load("res://Characters/Joshep/Sprites/jojo_jump.png"))
+					player.get_node("Sprite").set_texture(load("res://Characters/Joshep/CompetitiveColours/CoCo_Spin_1.png"))
 				elif(player.jump_count == 0):
 					player.get_node("AnimationPlayer").play("Jump2")
 						
@@ -1147,6 +1159,7 @@ class WallSlide_State:
 		
 		player.get_node("AnimationPlayer").play("WallSlide")
 		player.ran = false
+		player.get_node("SamplePlayer2D").play("Land")
 		
 		#player.raycast_side.set_enabled(true)
 		player.raycast_side.set_cast_to(Vector2((player.facing_Right_Num * 5),0))
@@ -1256,6 +1269,7 @@ class SideB_State:
 						objects.set_global_pos(Vector2(objects.get_global_pos().x,(objects.get_global_pos().y - 3)))
 						objects.velocity = Vector2(0,-300)
 						objects._set_state(player.LAUNCH_STATE)
+						player.get_node("SamplePlayer2D").play("Slam")
 						
 						hit = true
 		else:
@@ -1284,9 +1298,6 @@ class Aim_State:
 		self.player = player
 
 		player.get_node("Sprite 2").set_hidden(false)
-		var anim_speed = clamp(round(player.clack_speed / 10), 0.1 ,10)
-		#print(anim_speed, "SWAG")
-		player.get_node("AnimationPlayer").set_speed(anim_speed)
 		player.get_node("AnimationPlayer").play("Aim")
 		pass
 
@@ -1306,8 +1317,13 @@ class Aim_State:
 			if(!throw):
 				if( (player.Axis.x > 0.5) || (player.Axis.x < -0.5) || (player.Axis.y > 0.5) || (player.Axis.y < -0.5)):
 					throw = true
-					player.get_node("AnimationPlayer").play("Throw", -1, 3)
+					#Why did it take me all day( (3 or 4)+ Hours) ?!?!
+					var anim_speed = ((round(player.clack_speed) + (((10 - round(player.clack_speed)) /2))) / 10)
+					print(player.clack_speed, " ", anim_speed)
+					player.get_node("AnimationPlayer").set_speed(anim_speed)
+					player.get_node("AnimationPlayer").play("Throw", -1, anim_speed)
 				else:
+					player.get_node("AnimationPlayer").set_speed(1)
 					player._set_state(player.WALK_STATE)
 					
 			else:

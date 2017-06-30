@@ -6,7 +6,7 @@ var timer = 1
 	
 func _ready():
 	# Called every time the node is added to the scene.
-	
+	get_node("SamplePlayer2D").play("Clacker_Spin")
 	#Scan for Player with controller number that matches assigned number
 	if(assingedNumber > -1 && assingedNumber < 9):
 		for player in get_tree().get_nodes_in_group("Player"):

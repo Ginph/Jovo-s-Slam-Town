@@ -1,13 +1,14 @@
-[gd_scene load_steps=12 format=1]
+[gd_scene load_steps=14 format=1]
 
 [ext_resource path="res://Scripts/Clacker.gd" type="Script" id=1]
 [ext_resource path="res://Characters/Joshep/Sprites/Clackers/Clackers_1.png" type="Texture" id=2]
 [ext_resource path="res://Characters/Joshep/Sprites/Clackers/Clackers3_1.png" type="Texture" id=3]
-[ext_resource path="res://Characters/Joshep/Sprites/Clackers/Hamon_Big1.png" type="Texture" id=4]
-[ext_resource path="res://Characters/Joshep/Sprites/Clackers/Hamon_Big2.png" type="Texture" id=5]
-[ext_resource path="res://Characters/Joshep/Sprites/Clackers/Hamon Layer 1.png" type="Texture" id=6]
-[ext_resource path="res://Characters/Joshep/Sprites/Clackers/Hamon Layer 2.png" type="Texture" id=7]
-[ext_resource path="res://Characters/Joshep/Sprites/Clackers/Hamon Layer 3.png" type="Texture" id=8]
+[ext_resource path="res://Characters/Joshep/Sprites/Clackers/Hamon Layer 1.png" type="Texture" id=4]
+[ext_resource path="res://Characters/Joshep/Sprites/Clackers/Hamon Layer 2.png" type="Texture" id=5]
+[ext_resource path="res://Characters/Joshep/Sprites/Clackers/Hamon Layer 3.png" type="Texture" id=6]
+[ext_resource path="res://Characters/Joshep/Sprites/Clackers/Hamon_Big1.png" type="Texture" id=7]
+[ext_resource path="res://Characters/Joshep/Sprites/Clackers/Hamon_Big2.png" type="Texture" id=8]
+[ext_resource path="res://Sounds/Clacker_Spin.smp" type="Sample" id=9]
 
 [sub_resource type="CircleShape2D" id=1]
 
@@ -22,16 +23,25 @@ radius = 10.0
 [sub_resource type="SpriteFrames" id=3]
 
 animations = [ {
-"frames": [ ExtResource( 4 ), ExtResource( 5 ) ],
-"loop": true,
-"name": "Hamon_Big",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ) ],
+"frames": [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ) ],
 "loop": true,
 "name": "Hamon_Small",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 7 ), ExtResource( 8 ) ],
+"loop": true,
+"name": "Hamon_Big",
+"speed": 5.0
 } ]
+
+[sub_resource type="SampleLibrary" id=4]
+
+samples/Clacker_Spin = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 9 )
+}
 
 [node name="Clacker" type="RigidBody2D" groups=[
 "Hurt",
@@ -45,7 +55,7 @@ collision/layers = 0
 collision/mask = 1024
 mode = 0
 mass = 1.0
-friction = 1.0
+friction = 0.0
 bounce = 1.0
 gravity_scale = 0.0
 custom_integrator = false
@@ -126,5 +136,17 @@ _update_shape_index = 0
 
 frames = SubResource( 3 )
 animation = "default"
+
+[node name="SamplePlayer2D" type="SamplePlayer2D" parent="."]
+
+transform/pos = Vector2( 1, 0 )
+params/volume_db = -8.0
+params/pitch_scale = 1.0
+params/attenuation/min_distance = 1.0
+params/attenuation/max_distance = 2048.0
+params/attenuation/distance_exp = 1.0
+config/polyphony = 1
+config/samples = SubResource( 4 )
+config/pitch_random = 0.0
 
 
