@@ -1,6 +1,13 @@
-[gd_scene load_steps=2 format=1]
+[gd_scene load_steps=3 format=1]
 
 [ext_resource path="res://Scripts/gui.gd" type="Script" id=1]
+
+[sub_resource type="Animation" id=1]
+
+resource/name = "WinnerAni"
+length = 4.0
+loop = false
+step = 0.1
 
 [node name="gui" type="CanvasLayer"]
 
@@ -49,5 +56,29 @@ align = 2
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
+
+[node name="Go" type="Control" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 40.0
+margin/bottom = 40.0
+
+[node name="Sprite" type="Sprite" parent="Go"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Go"]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/WinnerAni = SubResource( 1 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = ""
 
 

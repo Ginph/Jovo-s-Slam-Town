@@ -6,12 +6,16 @@ var stage = 0
 
 func _ready():
 	
+	#Read an array that contains each character selected and pallet and what team they are on
+	#Spawn them
+	
+	
 	for players in get_tree().get_nodes_in_group("Player"):
 		players.set_layer_mask_bit(players.controller, true)
 		print(players.get_layer_mask_bit(players.controller))
 	
 	check_for_win()
-	get_node("SamplePlayer2D").play("321Go")
+	get_node("Anouncer").play("321Go")
 	
 	set_fixed_process(true)
 	
@@ -89,7 +93,7 @@ func check_for_win():
 		for players in get_tree().get_nodes_in_group("Player"):
 			if(players.team == thegoodteam):
 				print("Works")
-				get_node("gui/Go/sprite").set_modulate(players.flag)
+				get_node("gui/Go/Sprite").set_modulate(players.flag)
 		
 		get_node("gui/Go/AnimationPlayer").play("WinnerAni")
 		
