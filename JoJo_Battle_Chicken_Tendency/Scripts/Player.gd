@@ -40,30 +40,30 @@ const RUNNINGTURN_STATE = 13
 const DASH_STATE = 14
 const WALLSLIDE_STATE = 15
 const LAUNCH_STATE = 16
-const SIDEB_STATE = 17
-const AIM_STATE = 18
-const INTRO_STATE = 19
+const INTRO_STATE = 17
+
+onready var pn = (controller + 1) #"Player Number"
 
 #Control Name Variables
-export var Input_Up = " "
-export var Input_Down = " "
-export var Input_Left = " "
-export var Input_Right = " "
+onready var Input_Up = ("Player" + str(pn) + "_Up")
+onready var Input_Down = ("Player" + str(pn) + "_Down")
+onready var Input_Left = ("Player" + str(pn) + "_Left")
+onready var Input_Right = ("Player" + str(pn) + "_Right")
 
-export var Input_Jump = " "
-export var Input_B = " "
-export var Input_A = " "
+onready var Input_Jump = ("Player" + str(pn) + "_Jump")
+onready var Input_B = ("Player" + str(pn) + "_B")
+onready var Input_A = ("Player" + str(pn) + "_A")
 
-export var Input_Taunt_Up = " "
-export var Input_Taunt_Down = " "
+onready var Input_Taunt_Up = ("Player" + str(pn) + "_Taunt_Up")
+onready var Input_Taunt_Down = ("Player" + str(pn) + "_Taunt_Down")
 
-export var Input_Trigger_Left = " "
-export var Input_Trigger_Right = " "
+onready var Input_Trigger_Left = ("Player" + str(pn) + "_Trigger_Left")
+onready var Input_Trigger_Right = ("Player" + str(pn) + "_Trigger_Right")
 
-export var Input_C_Left = " "
-export var Input_C_Right = " "
-export var Input_C_Up = " "
-export var Input_C_Down = " "
+onready var Input_C_Left = " "
+onready var Input_C_Right = " "
+onready var Input_C_Up = " "
+onready var Input_C_Down = " "
 
 var walk_Speed = 600
 var max_walk_speed = 100
@@ -74,11 +74,7 @@ var jump_Type = false #false = regular jump | True = WallJump
 var damage = 0
 var stocks = 3
 
-var hamon_Charge = 0
-var clack_speed = 10
-var clack_speed_max = 10
 var size = 1
-var TriggerB = true
 
 var taunt = 0
 var taunt_list = ["Taunt_Pose" , "Taunt_BM"]
@@ -86,7 +82,7 @@ var taunt_list = ["Taunt_Pose" , "Taunt_BM"]
 onready var state = Fall_State.new(self)
 
 func _ready():
-
+	
 	raycast_left = get_node("RayCast_Left")
 	raycast_right = get_node("RayCast_Right")
 	raycast_side = get_node("RayCast_Side")
@@ -97,7 +93,6 @@ func _ready():
 	raycast_side.add_exception(self)
 	
 	self.get_node("Sprite").set_modulate(flag)
-	self.get_node("Clackers").set_modulate(flag)
 	
 	get_node("Area2D").set_collision_mask_bit(controller, false)
 
@@ -112,47 +107,10 @@ func _fixed_process(delta):
 
 	state.update(delta)
 
-	size = (10 / clack_speed)
-
-	#Change rotation on Clackers
-	var clack_rot = get_node("Clackers").get_rot()
-	get_node("Clackers").set_rot(clack_rot + (clack_speed * facing_Right_Num))
-
-	get_node("Clackers/HamonSprite").set_scale(Vector2(size,size))
-	
-	if(get_node("Clackers/HamonSprite").get_scale().x < 1.25):
-		get_node("Clackers/HamonSprite").set_hidden(true)
-	else:
-		get_node("Clackers/HamonSprite").set_hidden(false)
-	
-	if(get_node("Clackers/HamonSprite").get_scale().x < 3):
-		get_node("Clackers/HamonSprite").set_animation("Hamon_Small")
-	else:
-		get_node("Clackers/HamonSprite").set_animation("Hamon_Big")
-	
-	if(clack_speed < clack_speed_max):
-		if(_get_state() != AIM_STATE):
-			clack_speed += 0.005
-
 	pass
 
 func _input(event):
 	state.input(event)
-	
-	if((event.is_action(Input_Trigger_Left) && TriggerB) || (event.is_action(Input_Trigger_Right) && !TriggerB)):
-		
-		#Left
-		if((event.value > 0.1) && TriggerB):
-			clack_speed = (clack_speed - 0.25)
-			TriggerB = false
-			
-		#Right
-		elif((event.value > 0.1) && !TriggerB):
-			clack_speed = (clack_speed - 0.25)
-			TriggerB = true
-	
-	if(clack_speed < 1):
-		clack_speed = 1
 	
 	#C stick previous
 	cstick_p = axis_c_Calculator()
@@ -195,10 +153,6 @@ func _set_state(new_state):
 		state = WallSlide_State.new(self)
 	elif(new_state == LAUNCH_STATE):
 		state = Launch_State.new(self)
-	elif(new_state == SIDEB_STATE):
-		state = SideB_State.new(self)
-	elif(new_state == AIM_STATE):
-		state = Aim_State.new(self)
 	elif(new_state == INTRO_STATE):
 		state = Intro_State.new(self)
 		pass
@@ -236,8 +190,6 @@ func _get_state():
 		return WALLSLIDE_STATE
 	elif(state extends Launch_State):
 		return LAUNCH_STATE
-	elif(state extends Aim_State):
-		return AIM_STATE
 	elif(state extends Intro_State):
 		return INTRO_STATE
 	pass
@@ -273,9 +225,7 @@ func player_physics(var speed, delta, var input, var friction):
 	var floor_velocity = Vector2();
 
 	if(Axis.y > 0.6):
-		if(_get_state() != AIM_STATE):
-			self.set_collision_mask_bit(11, false)
-		
+		self.set_collision_mask_bit(11, false)
 	else:
 		self.set_collision_mask_bit(11, true)
 		
@@ -384,37 +334,6 @@ func check_lean():
 			leaned = true
 			_set_state(LEAN_STATE)
 	pass
-	
-func throw():
-	
-	if(self.get_node("Clackers").is_visible()):
-		get_node("Clackers").set_hidden(true)
-	
-		#Create new node and change owner value of owner to the player also set velocity of node
-		var clacker_scence = load("res://Scences/Clacker.tscn").instance()
-		clacker_scence.assingedNumber = controller
-		clacker_scence.timer = (12 - clack_speed)
-		clacker_scence.get_node("Particles2D").set_color(flag)
-		
-		get_tree().get_root().add_child(clacker_scence)
-
-		#clacker_scence.get_node("Area2D").set_scale(Vector2((0.25 * size),(0.25 * size)))
-		clacker_scence.get_node("Area2D").set_scale(Vector2(size,size))
-		
-		if(size < 5):
-			clacker_scence.get_node("Area2D/Hamon").set_animation("Hamon_Small")
-		else:
-			clacker_scence.get_node("Area2D/Hamon").set_animation("Hamon_Big")
-		#clacker_scence.get_node("Particles2D").set_param(11, size)
-		
-		clacker_scence.set_global_pos(self.get_global_pos())
-		
-		var T = Vector2(-sin(get_node("Sprite 2").get_rot()),-cos(get_node("Sprite 2").get_rot()))
-
-		clacker_scence.set_linear_velocity(T * (100 + (clack_speed * 50)))
-		clacker_scence.set_angular_velocity(get_node("Clackers").get_rot() + (clack_speed * facing_Right_Num)) #9.8
-		
-	pass
 
 #func _on_Area2D_body_enter( body ):
 	#pass # replace with function body
@@ -424,7 +343,6 @@ func _on_Area2D_area_enter( area ):
 	if(area.is_in_group("Hurt")):
 		if(area.get_owner().assingedNumber != controller):
 			damage += round((area.get_owner().get_node("Area2D").get_scale().x * 2))
-			#velocity = (area.get_owner().get_linear_velocity() * (damage / area.get_owner().get_node("Clacker_Sprite").get_scale().x))
 			set_pos(Vector2(get_pos().x,(get_pos().y - 3)))
 			velocity = (((area.get_owner().get_linear_velocity().normalized() * 10) * damage) )
 			_set_state(LAUNCH_STATE)
@@ -514,23 +432,11 @@ class Idle_State:
 			player.jump_count = 1
 			player._set_state(player.FALL_STATE)
 		
-		if(Input.is_action_pressed(player.Input_B) && (player.hamon_Charge > 100)):
-			if(player.Axis.x > 0.5):
-				player.update_side(true)
-			elif(player.Axis.x < -0.5):
-				player.update_side(false)
-				
-			player._set_state(player.SIDEB_STATE)
-
 		pass
 
 	func input(event):
 		if(Input.is_joy_button_pressed(player.controller, JOY_XBOX_Y) || Input.is_action_pressed(player.Input_Jump)):
 			player._set_state(player.PREJUMP_STATE)
-			
-		if(Input.is_action_pressed(player.Input_A)):
-			if(!player.get_node("Clackers").is_hidden()):
-				player._set_state(player.AIM_STATE)
 				
 		if(Input.is_action_pressed(player.Input_Taunt_Up)):
 			player.taunt = 0
@@ -595,20 +501,8 @@ class Fall_State:
 		#Fast Fall
 		if(player.Axis.y > 0.5):
 			player.velocity.y = 300
-			
-		if(Input.is_action_pressed(player.Input_B) && (player.hamon_Charge > 100)):
-			if(player.Axis.x > 0.5):
-				player.update_side(true)
-			elif(player.Axis.x < -0.5):
-				player.update_side(false)
-				
-			player._set_state(player.SIDEB_STATE)
 
 	func input(event):
-		
-		if(Input.is_action_pressed(player.Input_A)):
-			if(!player.get_node("Clackers").is_hidden()):
-					player._set_state(player.AIM_STATE)
 		
 		pass
 
@@ -648,9 +542,6 @@ class Walk_State:
 			player.jump_count = 1
 			player._set_state(player.FALL_STATE)
 
-		if(Input.is_action_pressed(player.Input_B) && (player.hamon_Charge > 100)):
-			player._set_state(player.SIDEB_STATE)
-
 		pass
 
 	func input(event):
@@ -658,10 +549,6 @@ class Walk_State:
 			player._set_state(player.PREJUMP_STATE)
 		if((Input.is_action_pressed(player.Input_Down)) || (player.Axis.y > 0.5)):
 			player._set_state(player.CROUCH_STATE)
-
-		if(Input.is_action_pressed(player.Input_A)):
-			if(!player.get_node("Clackers").is_hidden()):
-				player._set_state(player.AIM_STATE)
 
 		pass
 
@@ -696,7 +583,7 @@ class Jump_State:
 				if(player.jump_count == 1):
 					player.get_node("Sprite").set_texture(load("res://Characters/Joshep/CompetitiveColours/CoCo_Spin_1.png"))
 				elif(player.jump_count == 0):
-					player.get_node("AnimationPlayer").play("Jump2")
+					player.get_node("AnimationPlayer").play("Jump_Foward_2")
 						
 			#print("Jump")
 		else:
@@ -705,7 +592,6 @@ class Jump_State:
 			player.jump_Type = false
 			#print("WallJump")
 
-		player.hamon_Charge += 5
 
 		pass
 
@@ -718,23 +604,11 @@ class Jump_State:
 			player._set_state(player.FALL_STATE);
 		player.player_physics(Vector2(400, 300),delta,true,120)
 		
-		if(Input.is_action_pressed(player.Input_B) && (player.hamon_Charge > 100)):
-			if(player.Axis.x > 0.5):
-				player.update_side(true)
-			elif(player.Axis.x < -0.5):
-				player.update_side(false)
-				
-			player._set_state(player.SIDEB_STATE)
-		
 		pass
 
 	func input(event):
 		if((Input.is_joy_button_pressed(player.controller, JOY_XBOX_Y) || Input.is_action_pressed(player.Input_Jump)) && player.jump_count > 0):
 			player._set_state(player.JUMP_STATE)
-			
-		if(Input.is_action_pressed(player.Input_A)):
-			if(!player.get_node("Clackers").is_hidden()):
-				player._set_state(player.AIM_STATE)
 			
 		pass
 
@@ -913,12 +787,6 @@ class Run_State:
 		if(!player.get_node("RayCast_Middle").is_colliding() && !player.get_node("RayCast_Left").is_colliding() && !player.get_node("RayCast_Right").is_colliding()):
 			player.jump_count = 1
 			player._set_state(player.FALL_STATE)
-
-		#TODO Sort Everything into the correct function like Input & Fixed_Procces
-		player.hamon_Charge += 1
-
-		if(Input.is_action_pressed(player.Input_B) && (player.hamon_Charge > 100)):
-			player._set_state(player.SIDEB_STATE)
 
 		pass
 
@@ -1241,123 +1109,11 @@ class Launch_State:
 	func exit():
 		player.get_node("Sprite").set_rot(0)
 		pass
-		
-
-# SIDEB STATE -------------------------------------------------------
-
-class SideB_State:
-	var player
-	var joy
-	var hit = false
-
-	func _init(player):
-		
-		self.player = player
-		player.get_node("AnimationPlayer").play("Side-B-Dash")
-		
-		player.velocity = Vector2((player.hamon_Charge * player.facing_Right_Num),0)
-		
-		pass
-
-	func update(delta):
-
-		#player.Axis = player.axis_Calculator(player.Axis)
-		if(!hit):
-			if(player.velocity.x < 0.3 && player.velocity.x > -0.3):
-				player._set_state(player.FALL_STATE)	
-				
-			#Check for collision with other player
-			if(player.get_node("Area2D").get_overlapping_bodies() != null):
-				
-				for objects in player.get_node("Area2D").get_overlapping_bodies():
-					
-					if(objects.is_in_group("Player")):
-						player.get_node("AnimationPlayer").play("Side-B-Hit")
-						player.velocity = Vector2(0,0)
-						objects.set_global_pos(Vector2(objects.get_global_pos().x,(objects.get_global_pos().y - 3)))
-						objects.velocity = Vector2(0,-300)
-						objects._set_state(player.LAUNCH_STATE)
-						player.get_node("SamplePlayer2D").play("Slam")
-						
-						hit = true
-		else:
-			if(!player.get_node("AnimationPlayer").is_playing()):
-				player._set_state(player.FALL_STATE)
-
-		player.player_physics(Vector2(400, 0), delta,false,120)
-
-	func input(event):
-
-		pass
-
-	func exit():
-		player.hamon_Charge = 0
-		print("Exit")
-		pass
-		
-
-# AIM STATE -------------------------------------------------------
-
-class Aim_State:
-	var player
-	var throw = false
-
-	func _init(player):
-		self.player = player
-
-		player.get_node("Sprite 2").set_hidden(false)
-		player.get_node("AnimationPlayer").play("Aim")
-		pass
-
-	func update(delta):
-
-		player.Axis = player.axis_Calculator(player.Axis)
-		
-		if(player.Axis.x < 0):
-			player.update_side(true)
-		elif(player.Axis.x > 0):
-			player.update_side(false)
-		
-		if( !Input.is_action_pressed(player.Input_A) ):
-			
-			if(!throw):
-				if( (player.Axis.x > 0.5) || (player.Axis.x < -0.5) || (player.Axis.y > 0.5) || (player.Axis.y < -0.5)):
-					throw = true
-					#Why did it take me all day( (3 or 4)+ Hours) ?!?!
-					var anim_speed = ((round(player.clack_speed) + (((10 - round(player.clack_speed)) /2))) / 10)
-					
-					player.get_node("AnimationPlayer").set_speed(anim_speed)
-					player.get_node("AnimationPlayer").play("Throw", -1, anim_speed)
-				else:
-					player.get_node("AnimationPlayer").set_speed(1)
-					player._set_state(player.WALK_STATE)
-					
-			else:
-				if(!player.get_node("AnimationPlayer").is_playing()):
-					player.throw()
-					player._set_state(player.WALK_STATE)
-			
-		player.player_physics(Vector2(400, 150), delta,false,120)
-		
-		pass
-
-	func input(event):
-		
-		if(!throw):
-			player.get_node("Sprite 2").set_rot(atan2(player.Axis.x, player.Axis.y))
-		
-		pass
-
-	func exit():
-		player.get_node("AnimationPlayer").set_speed(1)
-		player.get_node("Sprite 2").set_hidden(true)
-		pass
 
 # INTRO STATE -------------------------------------------------------
 
 class Intro_State:
 	var player
-	var throw = false
 
 	func _init(player):
 		self.player = player
