@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=1]
+[gd_scene load_steps=33 format=1]
 
 [ext_resource path="res://Scripts/Stage button.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Menu/Background.png" type="Texture" id=2]
@@ -15,17 +15,21 @@
 [ext_resource path="res://Sprites/Menu/Options Menu.png" type="Texture" id=13]
 [ext_resource path="res://Sprites/Menu/Selector.png" type="Texture" id=14]
 [ext_resource path="res://Sprites/Menu/Arena.png" type="Texture" id=15]
-[ext_resource path="res://Sprites/Menu/Options.png" type="Texture" id=16]
-[ext_resource path="res://Sprites/Menu/Credits.png" type="Texture" id=17]
-[ext_resource path="res://Sprites/Menu/Credits Text.png" type="Texture" id=18]
-[ext_resource path="res://Sprites/Menu/Controller Layout.png" type="Texture" id=19]
-[ext_resource path="res://Sprites/Menu/Back.png" type="Texture" id=20]
-[ext_resource path="res://Sprites/Menu/Dylan's Sprite.png" type="Texture" id=21]
-[ext_resource path="res://Sprites/Menu/My Sprite.png" type="Texture" id=22]
-[ext_resource path="res://Sprites/Menu/Lucid City Preview.png" type="Texture" id=23]
-[ext_resource path="res://Sprites/Menu/Lucid City Select.png" type="Texture" id=24]
-[ext_resource path="res://Sprites/Menu/Locked Stage.png" type="Texture" id=25]
-[ext_resource path="res://Sprites/Menu/Fight.png" type="Texture" id=26]
+[ext_resource path="res://Sprites/Menu/Arena_Highlighted.png" type="Texture" id=16]
+[ext_resource path="res://Sprites/Menu/Options.png" type="Texture" id=17]
+[ext_resource path="res://Sprites/Menu/Options_Highlighted.png" type="Texture" id=18]
+[ext_resource path="res://Sprites/Menu/Credits.png" type="Texture" id=19]
+[ext_resource path="res://Sprites/Menu/Credits_Highlighted.png" type="Texture" id=20]
+[ext_resource path="res://Sprites/Menu/Credits Text.png" type="Texture" id=21]
+[ext_resource path="res://Sprites/Menu/Controller Layout.png" type="Texture" id=22]
+[ext_resource path="res://Sprites/Menu/Back.png" type="Texture" id=23]
+[ext_resource path="res://Sprites/Menu/Back_Highlighted.png" type="Texture" id=24]
+[ext_resource path="res://Sprites/Menu/Dylan's Sprite.png" type="Texture" id=25]
+[ext_resource path="res://Sprites/Menu/My Sprite.png" type="Texture" id=26]
+[ext_resource path="res://Sprites/Menu/Lucid City Preview.png" type="Texture" id=27]
+[ext_resource path="res://Sprites/Menu/Lucid City Select.png" type="Texture" id=28]
+[ext_resource path="res://Sprites/Menu/Locked Stage.png" type="Texture" id=29]
+[ext_resource path="res://Sprites/Menu/Fight.png" type="Texture" id=30]
 
 [sub_resource type="FixedMaterial" id=1]
 
@@ -220,7 +224,7 @@ geometry/visible_in_all_rooms = false
 geometry/use_baked_light = false
 geometry/baked_light_tex_id = 0
 material = SubResource( 1 )
-amount = 150
+amount = 75
 emitting = true
 visibility = AABB( -4, -4, -4, 8, 8, 8 )
 emission_extents = Vector3( 0.1, 0.1, 0.1 )
@@ -229,7 +233,7 @@ emission_points = Vector3Array(  )
 gravity_normal = Vector3( 0, -1, 0 )
 local_coords = false
 emit_timeout = 0.0
-vars/lifetime = 10.0
+vars/lifetime = 3.0
 vars/spread = 0.2
 vars/gravity = 0.2
 vars/linear_vel = 5.0
@@ -350,6 +354,7 @@ toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 textures/normal = ExtResource( 15 )
+textures/focused = ExtResource( 16 )
 params/resize_mode = 0
 params/scale = Vector2( 0.7, 0.7 )
 params/stretch_mode = 0
@@ -367,7 +372,8 @@ margin/bottom = 616.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
-textures/normal = ExtResource( 16 )
+textures/normal = ExtResource( 17 )
+textures/focused = ExtResource( 18 )
 params/resize_mode = 0
 params/scale = Vector2( 0.85, 0.85 )
 params/stretch_mode = 0
@@ -385,7 +391,8 @@ margin/bottom = 738.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
-textures/normal = ExtResource( 17 )
+textures/normal = ExtResource( 19 )
+textures/focused = ExtResource( 20 )
 params/resize_mode = 0
 params/scale = Vector2( 0.85, 0.85 )
 params/stretch_mode = 0
@@ -404,7 +411,7 @@ margin/bottom = 720.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
-textures/normal = ExtResource( 18 )
+textures/normal = ExtResource( 21 )
 params/resize_mode = 0
 params/stretch_mode = 0
 
@@ -419,7 +426,7 @@ margin/left = 0.0
 margin/top = 0.0
 margin/right = 1280.0
 margin/bottom = 720.0
-texture = ExtResource( 19 )
+texture = ExtResource( 22 )
 stretch_mode = 0
 
 [node name="Back Button" type="TextureButton" parent="2D"]
@@ -435,7 +442,8 @@ margin/bottom = -79.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
-textures/normal = ExtResource( 20 )
+textures/normal = ExtResource( 23 )
+textures/focused = ExtResource( 24 )
 params/resize_mode = 0
 params/scale = Vector2( 0.5, 0.5 )
 params/stretch_mode = 0
@@ -451,7 +459,7 @@ margin/left = 245.0
 margin/top = 280.0
 margin/right = 355.0
 margin/bottom = 390.0
-texture = ExtResource( 21 )
+texture = ExtResource( 25 )
 expand = true
 stretch_mode = 0
 
@@ -466,7 +474,7 @@ margin/left = 846.0
 margin/top = 280.0
 margin/right = 954.0
 margin/bottom = 388.0
-texture = ExtResource( 22 )
+texture = ExtResource( 26 )
 expand = true
 stretch_mode = 0
 
@@ -480,7 +488,7 @@ margin/left = 0.0
 margin/top = -450.0
 margin/right = 1280.0
 margin/bottom = -15.0
-texture = ExtResource( 23 )
+texture = ExtResource( 27 )
 stretch_mode = 0
 
 [node name="Lucid City Select" type="TextureButton" parent="2D"]
@@ -496,7 +504,7 @@ margin/bottom = 1050.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
-textures/normal = ExtResource( 24 )
+textures/normal = ExtResource( 28 )
 params/resize_mode = 1
 params/stretch_mode = 0
 
@@ -513,7 +521,7 @@ margin/bottom = 1054.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
-textures/normal = ExtResource( 25 )
+textures/normal = ExtResource( 29 )
 params/resize_mode = 1
 params/stretch_mode = 0
 
@@ -530,7 +538,7 @@ margin/bottom = 1050.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
-textures/normal = ExtResource( 25 )
+textures/normal = ExtResource( 29 )
 params/resize_mode = 1
 params/stretch_mode = 0
 
@@ -547,7 +555,7 @@ margin/bottom = 1050.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
-textures/normal = ExtResource( 25 )
+textures/normal = ExtResource( 29 )
 params/resize_mode = 1
 params/stretch_mode = 0
 
@@ -564,7 +572,7 @@ margin/bottom = 1050.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
-textures/normal = ExtResource( 25 )
+textures/normal = ExtResource( 29 )
 params/resize_mode = 1
 params/stretch_mode = 0
 
@@ -581,7 +589,7 @@ margin/bottom = 878.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
-textures/normal = ExtResource( 26 )
+textures/normal = ExtResource( 30 )
 params/resize_mode = 1
 params/stretch_mode = 0
 
@@ -594,6 +602,8 @@ params/stretch_mode = 0
 [connection signal="pressed" from="2D/Back Button" to="." method="_on_Back_Button_pressed"]
 
 [connection signal="pressed" from="2D/Lucid City Select" to="." method="_on_Lucid_City_Select_pressed"]
+
+[connection signal="pressed" from="2D/Locked" to="." method="_on_Locked_pressed"]
 
 [connection signal="pressed" from="2D/Fight Button" to="." method="_on_Fight_Button_pressed"]
 

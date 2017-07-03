@@ -1,0 +1,699 @@
+[gd_scene load_steps=32 format=1]
+
+[ext_resource path="res://Scences/Match.gd" type="Script" id=1]
+[ext_resource path="res://Scences/Joshep.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scences/Horse.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scences/TestTileSet8.tres" type="TileSet" id=4]
+[ext_resource path="res://Textures/TestLevel/JoJo_background_4.png" type="Texture" id=5]
+[ext_resource path="res://Textures/TestLevel/JoJo_background_2.png" type="Texture" id=6]
+[ext_resource path="res://Textures/TestLevel/JoJo_background_3.png" type="Texture" id=7]
+[ext_resource path="res://Textures/TestLevel/JoJo_background_1.png" type="Texture" id=8]
+[ext_resource path="res://Scences/gui.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Scripts/Camera_Behaviour.gd" type="Script" id=10]
+[ext_resource path="res://Scripts/FPS_Label.gd" type="Script" id=11]
+[ext_resource path="res://Scripts/BlastZones.gd" type="Script" id=12]
+[ext_resource path="res://Sounds/KO.smp" type="Sample" id=13]
+[ext_resource path="res://Sprites/Cloud.png" type="Texture" id=14]
+[ext_resource path="res://Sprites/level_spritesheet.png" type="Texture" id=15]
+[ext_resource path="res://Characters/Joshep/Sprites/jojo_jumpblue.png" type="Texture" id=16]
+[ext_resource path="res://Models/skybox_sphere.msh" type="Mesh" id=17]
+[ext_resource path="res://Sounds/321Go.smp" type="Sample" id=18]
+[ext_resource path="res://Sounds/P1.smp" type="Sample" id=19]
+[ext_resource path="res://Sounds/P2.smp" type="Sample" id=20]
+[ext_resource path="res://Sounds/defeated.smp" type="Sample" id=21]
+[ext_resource path="res://Sounds/defeated.wav" type="Sample" id=22]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 30.8643, 10 )
+
+[sub_resource type="RectangleShape2D" id=2]
+
+custom_solver_bias = 0.0
+extents = Vector2( 27.9301, 10 )
+
+[sub_resource type="RectangleShape2D" id=3]
+
+custom_solver_bias = 0.0
+extents = Vector2( 10, 34.1273 )
+
+[sub_resource type="RectangleShape2D" id=4]
+
+custom_solver_bias = 0.0
+extents = Vector2( 10, 40.7315 )
+
+[sub_resource type="SampleLibrary" id=5]
+
+samples/KO = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 13 )
+}
+
+[sub_resource type="ColorRamp" id=6]
+
+offsets = FloatArray( 0, 0.830986, 1 )
+colors = ColorArray( 1, 1, 1, 0.638314, 1, 1, 1, 0.736157, 1, 1, 1, 0 )
+
+[sub_resource type="RectangleShape2D" id=7]
+
+custom_solver_bias = 0.0
+extents = Vector2( 61.8983, 10.1136 )
+
+[sub_resource type="Animation" id=9]
+
+length = 30.0
+loop = true
+step = 0.1
+
+[sub_resource type="SampleLibrary" id=11]
+
+samples/321Go = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 18 )
+}
+samples/P1 = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 19 )
+}
+samples/P2 = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 20 )
+}
+samples/defeated = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 21 )
+}
+samples/wav = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 22 )
+}
+
+[node name="Node" type="Node"]
+
+script/script = ExtResource( 1 )
+spawnpoints = Vector2Array( 250, 291, 500, 291 )
+team_num = [ 0, 1 ]
+
+[node name="Joshep" parent="." instance=ExtResource( 2 )]
+
+editor/display_folded = true
+flag = Color( 0.574219, 0.830353, 1, 1 )
+
+[node name="Horse" parent="." instance=ExtResource( 3 )]
+
+transform/pos = Vector2( 30, 0 )
+controller = 1
+flag = Color( 1, 0.613281, 0.613281, 1 )
+team = 1
+
+[node name="Platforms" type="TileMap" parent="." groups=[
+"Platforms",
+]]
+
+visibility/visible = false
+transform/pos = Vector2( -510.766, -202.994 )
+transform/scale = Vector2( 2, 2 )
+mode = 0
+tile_set = ExtResource( 4 )
+cell/size = Vector2( 16, 16 )
+cell/quadrant_size = 16
+cell/custom_transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+cell/half_offset = 2
+cell/tile_origin = 0
+cell/y_sort = false
+collision/use_kinematic = false
+collision/friction = 1.0
+collision/bounce = 0.0
+collision/layers = 2048
+collision/mask = 0
+occluder/light_mask = 1
+tile_data = IntArray( 786472, 7 )
+
+[node name="Stage" type="TileMap" parent="."]
+
+transform/pos = Vector2( -510.766, -202.994 )
+transform/scale = Vector2( 2, 2 )
+mode = 0
+tile_set = ExtResource( 4 )
+cell/size = Vector2( 16, 16 )
+cell/quadrant_size = 16
+cell/custom_transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+cell/half_offset = 2
+cell/tile_origin = 0
+cell/y_sort = false
+collision/use_kinematic = false
+collision/friction = 1.0
+collision/bounce = 0.0
+collision/layers = 1024
+collision/mask = 0
+occluder/light_mask = 1
+tile_data = IntArray( 524298, 7, 524333, 7, 589834, 7, 589869, 7, 655370, 7, 655405, 7, 720906, 7, 720941, 7, 786442, 7, 786445, 7, 786446, 7, 786447, 7, 786448, 9, 786470, 8, 786471, 7, 786472, 7, 786473, 7, 786477, 7, 851978, 7, 851981, 7, 851982, 7, 851983, 9, 852007, 8, 852008, 7, 852009, 7, 852013, 7, 917514, 7, 917517, 7, 917518, 9, 917544, 8, 917545, 7, 917549, 7, 983050, 7, 983053, 7, 983081, 7, 983085, 7, 1048586, 7, 1048589, 7, 1048596, 11, 1048597, 8, 1048598, 7, 1048599, 6, 1048600, 7, 1048601, 6, 1048602, 6, 1048603, 6, 1048604, 6, 1048605, 6, 1048606, 7, 1048607, 6, 1048608, 7, 1048609, 9, 1048610, 12, 1048617, 7, 1048621, 7, 1114122, 7, 1114125, 7, 1114133, 11, 1114134, 8, 1114135, 7, 1114136, 6, 1114137, 7, 1114138, 6, 1114139, 6, 1114140, 6, 1114141, 7, 1114142, 6, 1114143, 7, 1114144, 9, 1114145, 12, 1114153, 7, 1114157, 7, 1179658, 7, 1179661, 7, 1179671, 8, 1179672, 6, 1179673, 9, 1179674, 7, 1179675, 4, 1179676, 7, 1179677, 8, 1179678, 6, 1179679, 9, 1179689, 7, 1179693, 7, 1245194, 7, 1245197, 8, 1245208, 4, 1245210, 3, 1245212, 3, 1245214, 4, 1245225, 9, 1245229, 7, 1310730, 7, 1310765, 7, 1376266, 7, 1376301, 8, 1441802, 9, 1507355, 7, 1572890, 7, 1572891, 6, 1572892, 7, 1638425, 7, 1638426, 6, 1638427, 6, 1638428, 6, 1638429, 7, 1703960, 7, 1703961, 7, 1703962, 7, 1703963, 7, 1703964, 7, 1703965, 7, 1703966, 7, 1769496, 7, 1769497, 6, 1769498, 6, 1769499, 6, 1769500, 6, 1769501, 6, 1769502, 7, 1835018, 7, 1835019, 7, 1835020, 7, 1835021, 7, 1835022, 7, 1835023, 7, 1835024, 7, 1835025, 7, 1835026, 7, 1835027, 7, 1835032, 7, 1835033, 7, 1835034, 7, 1835035, 7, 1835036, 7, 1835037, 7, 1835038, 7, 1835043, 7, 1835044, 7, 1835045, 7, 1835046, 7, 1835047, 7, 1835048, 7, 1835049, 7, 1835050, 7, 1835051, 7, 1835052, 7, 1835053, 7, 1900554, 8, 1900555, 7, 1900556, 7, 1900557, 7, 1900558, 7, 1900559, 7, 1900560, 7, 1900561, 7, 1900562, 7, 1900563, 9, 1900568, 8, 1900569, 7, 1900570, 7, 1900571, 7, 1900572, 7, 1900573, 7, 1900574, 9, 1900579, 8, 1900580, 7, 1900581, 7, 1900582, 7, 1900583, 7, 1900584, 7, 1900585, 7, 1900586, 7, 1900587, 7, 1900588, 7, 1900589, 9 )
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+editor/display_folded = true
+layer = -1
+offset = Vector2( 450, 400 )
+rotation = 0.0
+scale = Vector2( 5, 5 )
+scroll/offset = Vector2( 450, 400 )
+scroll/base_offset = Vector2( 0, 0 )
+scroll/base_scale = Vector2( 1, 1 )
+scroll/limit_begin = Vector2( 0, 0 )
+scroll/limit_end = Vector2( 0, 0 )
+scroll/ignore_camera_zoom = true
+
+[node name="Hill" type="ParallaxLayer" parent="ParallaxBackground"]
+
+editor/display_folded = true
+visibility/visible = false
+z/z = -1
+motion/scale = Vector2( 0.2, 0.2 )
+motion/offset = Vector2( 0, 0 )
+motion/mirroring = Vector2( 0, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/Hill"]
+
+texture = ExtResource( 5 )
+
+[node name="Trees" type="ParallaxLayer" parent="ParallaxBackground"]
+
+visibility/visible = false
+z/z = -3
+motion/scale = Vector2( 0.5, 0.2 )
+motion/offset = Vector2( 0, 0 )
+motion/mirroring = Vector2( 0, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/Trees"]
+
+texture = ExtResource( 6 )
+
+[node name="Castle" type="ParallaxLayer" parent="ParallaxBackground"]
+
+editor/display_folded = true
+visibility/visible = false
+z/z = -2
+motion/scale = Vector2( 0.5, 0.2 )
+motion/offset = Vector2( 0, 0 )
+motion/mirroring = Vector2( 0, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/Castle"]
+
+texture = ExtResource( 7 )
+
+[node name="Stars&Moon" type="ParallaxLayer" parent="ParallaxBackground"]
+
+editor/display_folded = true
+visibility/visible = false
+z/z = -4
+motion/scale = Vector2( 0.9, 0.1 )
+motion/offset = Vector2( 0, 0 )
+motion/mirroring = Vector2( 0, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/Stars&Moon"]
+
+texture = ExtResource( 8 )
+
+[node name="Sprite" type="Sprite" parent="."]
+
+editor/display_folded = true
+visibility/visible = false
+transform/pos = Vector2( 440.82, 329.179 )
+transform/scale = Vector2( 7.0028, 7.0028 )
+z/z = -2
+texture = ExtResource( 8 )
+
+[node name="Sprite" type="Sprite" parent="Sprite"]
+
+texture = ExtResource( 6 )
+
+[node name="Sprite3D" type="Sprite" parent="Sprite"]
+
+texture = ExtResource( 7 )
+
+[node name="Sprite3D1" type="Sprite" parent="Sprite"]
+
+transform/pos = Vector2( 0.0417023, 0.0416946 )
+texture = ExtResource( 5 )
+
+[node name="gui" parent="." instance=ExtResource( 9 )]
+
+editor/display_folded = true
+
+[node name="Go" type="Control" parent="gui"]
+
+anchor/left = 3
+anchor/top = 3
+anchor/right = 3
+anchor/bottom = 3
+rect/scale = Vector2( 2, 2 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 3
+size_flags/vertical = 3
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 0.0
+margin/bottom = 0.0
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+editor/display_folded = true
+transform/pos = Vector2( 391.786, 261.19 )
+anchor_mode = 1
+rotating = false
+current = true
+zoom = Vector2( 1, 1 )
+limit/left = -10000000
+limit/top = -10000000
+limit/right = 10000000
+limit/bottom = 10000000
+drag_margin/h_enabled = true
+drag_margin/v_enabled = true
+smoothing/enable = false
+smoothing/speed = 5.0
+drag_margin/left = 0.2
+drag_margin/top = 0.2
+drag_margin/right = 0.2
+drag_margin/bottom = 0.2
+script/script = ExtResource( 10 )
+limit_left = -400
+limit_right = 1100
+limit_up = -69
+limit_down = 950
+
+[node name="Label" type="Label" parent="Camera2D"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 40.0
+margin/bottom = 14.0
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+script/script = ExtResource( 11 )
+
+[node name="OutOfBounds" type="Node2D" parent="." groups=[
+"OutOfBounds",
+]]
+
+editor/display_folded = true
+script/script = ExtResource( 12 )
+
+[node name="StaticBody2D" type="Node2D" parent="OutOfBounds" groups=[
+"OutOfBounds",
+]]
+
+[node name="Blast_Zone_Top" type="Area2D" parent="OutOfBounds/StaticBody2D"]
+
+transform/pos = Vector2( 406.034, -428.356 )
+transform/scale = Vector2( 33.9082, 6.11889 )
+input/pickable = true
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+collision/mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OutOfBounds/StaticBody2D/Blast_Zone_Top"]
+
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
+[node name="Blast_Zone_Bottom" type="Area2D" parent="OutOfBounds/StaticBody2D"]
+
+transform/pos = Vector2( 396.599, 1190.93 )
+transform/scale = Vector2( 37.1339, 6.84459 )
+input/pickable = true
+shapes/0/shape = SubResource( 2 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+collision/mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OutOfBounds/StaticBody2D/Blast_Zone_Bottom"]
+
+shape = SubResource( 2 )
+trigger = false
+_update_shape_index = 0
+
+[node name="Blast_Zone_Left" type="Area2D" parent="OutOfBounds/StaticBody2D"]
+
+transform/pos = Vector2( -697.971, 338.761 )
+transform/scale = Vector2( 6.50593, 20.6575 )
+input/pickable = true
+shapes/0/shape = SubResource( 3 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1.04612, 0.428764, 1.57089 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+collision/mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OutOfBounds/StaticBody2D/Blast_Zone_Left"]
+
+transform/pos = Vector2( 0.428764, 1.57089 )
+transform/scale = Vector2( 1, 1.04612 )
+shape = SubResource( 3 )
+trigger = false
+_update_shape_index = 0
+
+[node name="Blast_Zone_Right" type="Area2D" parent="OutOfBounds/StaticBody2D"]
+
+transform/pos = Vector2( 1521.99, 369.092 )
+transform/scale = Vector2( 6.07911, 17.8569 )
+input/pickable = true
+shapes/0/shape = SubResource( 4 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+collision/mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OutOfBounds/StaticBody2D/Blast_Zone_Right"]
+
+shape = SubResource( 4 )
+trigger = false
+_update_shape_index = 0
+
+[node name="SamplePlayer2D" type="SamplePlayer2D" parent="OutOfBounds"]
+
+params/volume_db = 0.0
+params/pitch_scale = 1.0
+params/attenuation/min_distance = 1.0
+params/attenuation/max_distance = 2048.0
+params/attenuation/distance_exp = 1.0
+config/polyphony = 1
+config/samples = SubResource( 5 )
+config/pitch_random = 0.0
+
+[node name="Particles2D" type="Particles2D" parent="OutOfBounds"]
+
+config/amount = 120
+config/lifetime = 3.0
+config/emitting = false
+config/process_mode = 1
+config/local_space = false
+config/texture = ExtResource( 14 )
+params/direction = 0.0
+params/spread = 30.0
+params/linear_velocity = 1000.0
+params/spin_velocity = 2.0
+params/orbit_velocity = 0.0
+params/gravity_direction = 0.0
+params/gravity_strength = 0.0
+params/radial_accel = 0.0
+params/tangential_accel = 0.0
+params/damping = 0.0
+params/initial_angle = 0.0
+params/initial_size = 1.0
+params/final_size = 8.0
+params/hue_variation = 0.0
+params/anim_speed_scale = 1.0
+params/anim_initial_pos = 0.0
+randomness/spin_velocity = 0.05
+color/color_ramp = SubResource( 6 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+editor/display_folded = true
+transform/pos = Vector2( 285.361, 209.303 )
+input/pickable = false
+shapes/0/shape = SubResource( 7 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, -2.40225, 6.47356 )
+shapes/0/trigger = false
+collision/layers = 2048
+collision/mask = 0
+one_way_collision/direction = Vector2( 0, 1 )
+one_way_collision/max_depth = 6.0
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+
+transform/pos = Vector2( -2.40225, 6.47356 )
+shape = SubResource( 7 )
+trigger = false
+_update_shape_index = 0
+
+[node name="Sprite" type="Sprite" parent="StaticBody2D"]
+
+transform/pos = Vector2( -2.07335, 6.61885 )
+transform/scale = Vector2( 7.75787, 3.33261 )
+texture = ExtResource( 15 )
+region = true
+region_rect = Rect2( 16, 32, 16, 16 )
+
+[node name="StaticBody2D1" type="StaticBody2D" parent="."]
+
+editor/display_folded = true
+transform/pos = Vector2( 10, 580 )
+input/pickable = false
+shapes/0/shape = SubResource( 7 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, -2.40225, 6.47356 )
+shapes/0/trigger = false
+collision/layers = 2048
+collision/mask = 0
+one_way_collision/direction = Vector2( 0, 1 )
+one_way_collision/max_depth = 6.0
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D1"]
+
+transform/pos = Vector2( -2.40225, 6.47356 )
+shape = SubResource( 7 )
+trigger = false
+_update_shape_index = 0
+
+[node name="Sprite" type="Sprite" parent="StaticBody2D1"]
+
+transform/pos = Vector2( -2.07335, 6.61885 )
+transform/scale = Vector2( 7.75787, 3.33261 )
+texture = ExtResource( 15 )
+region = true
+region_rect = Rect2( 16, 32, 16, 16 )
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+
+editor/display_folded = true
+transform/pos = Vector2( 750, 580 )
+input/pickable = false
+shapes/0/shape = SubResource( 7 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, -2.40225, 6.47356 )
+shapes/0/trigger = false
+collision/layers = 2048
+collision/mask = 0
+one_way_collision/direction = Vector2( 0, 1 )
+one_way_collision/max_depth = 6.0
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+
+transform/pos = Vector2( -2.40225, 6.47356 )
+shape = SubResource( 7 )
+trigger = false
+_update_shape_index = 0
+
+[node name="Sprite" type="Sprite" parent="StaticBody2D2"]
+
+transform/pos = Vector2( -2.07335, 6.61885 )
+transform/scale = Vector2( 7.75787, 3.33261 )
+texture = ExtResource( 15 )
+region = true
+region_rect = Rect2( 16, 32, 16, 16 )
+
+[node name="jojo_jumpblue" type="Sprite" parent="."]
+
+transform/pos = Vector2( -171.507, 37.1047 )
+texture = ExtResource( 16 )
+
+[node name="OmniLight" type="OmniLight" parent="."]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+layers = 1
+params/enabled = true
+params/editor_only = false
+params/bake_mode = 0
+params/energy = 1.0
+colors/diffuse = Color( 1, 1, 1, 1 )
+colors/specular = Color( 1, 1, 1, 1 )
+shadow/shadow = false
+shadow/darkening = 0.0
+shadow/z_offset = 0.001
+shadow/z_slope_scale = 0.0
+shadow/esm_multiplier = 60.0
+shadow/blur_passes = 1.0
+projector = null
+operator = 0
+params/radius = 10.0
+params/attenuation = 1.0
+
+[node name="Camera" type="Camera" parent="."]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+projection = 0
+fov = 90.0
+near = 0.1
+far = 100.0
+keep_aspect = 1
+current = false
+visible_layers = 1048575
+environment = null
+h_offset = 0.0
+v_offset = 0.0
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+layers = 1
+geometry/visible = true
+geometry/material_override = null
+geometry/cast_shadow = 1
+geometry/receive_shadows = true
+geometry/range_begin = 0.0
+geometry/range_end = 0.0
+geometry/extra_cull_margin = 0.0
+geometry/billboard = false
+geometry/billboard_y = false
+geometry/depth_scale = false
+geometry/visible_in_all_rooms = false
+geometry/use_baked_light = false
+geometry/baked_light_tex_id = 0
+mesh/mesh = ExtResource( 17 )
+mesh/skeleton = NodePath("..")
+material/0 = null
+
+[node name="Particles" type="Particles" parent="."]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.187789, 6.38596, -4.53068 )
+layers = 1
+geometry/visible = true
+geometry/material_override = null
+geometry/cast_shadow = 1
+geometry/receive_shadows = true
+geometry/range_begin = 0.0
+geometry/range_end = 0.0
+geometry/extra_cull_margin = 0.0
+geometry/billboard = false
+geometry/billboard_y = false
+geometry/depth_scale = false
+geometry/visible_in_all_rooms = false
+geometry/use_baked_light = false
+geometry/baked_light_tex_id = 0
+material = null
+amount = 64
+emitting = true
+visibility = AABB( -4, -4, -4, 8, 8, 8 )
+emission_extents = Vector3( 6, 0.1, 2 )
+emission_base_velocity = Vector3( 0, 0, 0 )
+emission_points = Vector3Array(  )
+gravity_normal = Vector3( 0, -1, 0 )
+local_coords = false
+emit_timeout = 0.0
+vars/lifetime = 8.0
+vars/spread = 0.2
+vars/gravity = 0.5
+vars/linear_vel = 0.2
+vars/angular_vel = 0.0
+vars/linear_accel = 0.0
+vars/radial_accel = 0.0
+vars/tan_accel = 0.0
+vars/damping = 0.0
+vars/initial_size = 1.0
+vars/final_size = 1.0
+vars/initial_angle = 0.0
+vars/height_from_velocity = false
+vars/height = 1.0
+vars/height_speed_scale = 0.0
+rand/lifetime = 0.0
+rand/spread = 0.0
+rand/gravity = 0.0
+rand/linear_vel = 0.0
+rand/angular_vel = 0.0
+rand/linear_accel = 0.0
+rand/radial_accel = 0.0
+rand/tan_accel = 0.0
+rand/damping = 0.0
+rand/initial_size = 0.0
+rand/final_size = 0.0
+rand/initial_angle = 0.0
+rand/height = 0.0
+rand/height_speed_scale = 0.0
+color_phases/count = 0
+phase_0/pos = 0.0
+phase_0/color = Color( 1, 1, 1, 1 )
+phase_1/pos = 1.0
+phase_1/color = Color( 0, 0, 0, 1 )
+phase_2/pos = 1.0
+phase_2/color = Color( 0, 0, 0, 1 )
+phase_3/pos = 1.0
+phase_3/color = Color( 0, 0, 0, 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/Things = SubResource( 9 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = ""
+
+[node name="Anouncer" type="SamplePlayer2D" parent="."]
+
+params/volume_db = 0.0
+params/pitch_scale = 0.0
+params/attenuation/min_distance = 1.0
+params/attenuation/max_distance = 2048.0
+params/attenuation/distance_exp = 1.0
+config/polyphony = 1
+config/samples = SubResource( 11 )
+config/pitch_random = 0.0
+
+[connection signal="body_enter" from="OutOfBounds/StaticBody2D/Blast_Zone_Top" to="OutOfBounds" method="_on_Blast_Zone_Top_body_enter"]
+
+[connection signal="body_enter" from="OutOfBounds/StaticBody2D/Blast_Zone_Bottom" to="OutOfBounds" method="_on_Blast_Zone_Bottom_body_enter"]
+
+[connection signal="body_enter" from="OutOfBounds/StaticBody2D/Blast_Zone_Left" to="OutOfBounds" method="_on_Blast_Zone_Left_body_enter"]
+
+[connection signal="body_enter" from="OutOfBounds/StaticBody2D/Blast_Zone_Right" to="OutOfBounds" method="_on_Blast_Zone_Right_body_enter"]
+
+
+[editable path="Joshep"]

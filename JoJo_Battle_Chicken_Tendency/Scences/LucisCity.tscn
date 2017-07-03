@@ -1,15 +1,17 @@
-[gd_scene load_steps=16 format=1]
+[gd_scene load_steps=18 format=1]
 
-[ext_resource path="res://Stages/LucidCity/cloud_1.png" type="Texture" id=1]
-[ext_resource path="res://Stages/LucidCity/cloud_2.png" type="Texture" id=2]
-[ext_resource path="res://Stages/LucidCity/cloud_3.png" type="Texture" id=3]
-[ext_resource path="res://Stages/LucidCity/NightFall.png" type="Texture" id=4]
-[ext_resource path="res://Stages/LucidCity/SunSet.png" type="Texture" id=5]
-[ext_resource path="res://Stages/LucidCity/building_4.png" type="Texture" id=6]
-[ext_resource path="res://Stages/LucidCity/Bulding_1.png" type="Texture" id=7]
-[ext_resource path="res://Stages/LucidCity/Bulding_2.png" type="Texture" id=8]
-[ext_resource path="res://Stages/LucidCity/Bulding_3.png" type="Texture" id=9]
-[ext_resource path="res://Scences/Player.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Scences/Match.gd" type="Script" id=1]
+[ext_resource path="res://Stages/LucidCity/cloud_1.png" type="Texture" id=2]
+[ext_resource path="res://Stages/LucidCity/cloud_2.png" type="Texture" id=3]
+[ext_resource path="res://Stages/LucidCity/cloud_3.png" type="Texture" id=4]
+[ext_resource path="res://Stages/LucidCity/NightFall.png" type="Texture" id=5]
+[ext_resource path="res://Stages/LucidCity/SunSet.png" type="Texture" id=6]
+[ext_resource path="res://Stages/LucidCity/building_4.png" type="Texture" id=7]
+[ext_resource path="res://Stages/LucidCity/Bulding_1.png" type="Texture" id=8]
+[ext_resource path="res://Stages/LucidCity/Bulding_2.png" type="Texture" id=9]
+[ext_resource path="res://Stages/LucidCity/Bulding_3.png" type="Texture" id=10]
+[ext_resource path="res://Scences/Joshep.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Scences/gui.tscn" type="PackedScene" id=12]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -29,7 +31,7 @@ tracks/0/keys = {
 "times": FloatArray( 0, 25 ),
 "transitions": FloatArray( 1, 1 ),
 "update": 1,
-"values": [ ExtResource( 5 ), ExtResource( 4 ) ]
+"values": [ ExtResource( 6 ), ExtResource( 5 ) ]
 }
 
 [sub_resource type="RectangleShape2D" id=3]
@@ -49,8 +51,13 @@ extents = Vector2( 51.6992, 103.922 )
 
 [node name="Node" type="Node"]
 
+script/script = ExtResource( 1 )
+spawnpoints = Vector2Array( 0, 0, 0, 0 )
+team_num = [ 0, 1 ]
+
 [node name="Cloud" type="StaticBody2D" parent="."]
 
+editor/display_folded = true
 transform/pos = Vector2( 395.437, 230.141 )
 input/pickable = false
 shapes/0/shape = SubResource( 1 )
@@ -67,7 +74,7 @@ bounce = 0.0
 
 [node name="cloud_1" type="Sprite" parent="Cloud"]
 
-texture = ExtResource( 1 )
+texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Cloud"]
 
@@ -78,6 +85,7 @@ _update_shape_index = 0
 
 [node name="Cloud2" type="StaticBody2D" parent="."]
 
+editor/display_folded = true
 transform/pos = Vector2( 651.394, 161.442 )
 input/pickable = false
 shapes/0/shape = SubResource( 1 )
@@ -94,7 +102,7 @@ bounce = 0.0
 
 [node name="cloud_2" type="Sprite" parent="Cloud2"]
 
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
 
 [node name="CollisionShape2D1" type="CollisionShape2D" parent="Cloud2"]
 
@@ -105,6 +113,7 @@ _update_shape_index = 0
 
 [node name="Cloud3" type="StaticBody2D" parent="."]
 
+editor/display_folded = true
 transform/pos = Vector2( 651.394, 161.442 )
 input/pickable = false
 shapes/0/shape = SubResource( 1 )
@@ -122,7 +131,7 @@ bounce = 0.0
 [node name="cloud_3" type="Sprite" parent="Cloud3"]
 
 transform/pos = Vector2( -204.987, -110.803 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Cloud3"]
 
@@ -133,10 +142,11 @@ _update_shape_index = 0
 
 [node name="SunSet" type="Sprite" parent="."]
 
+editor/display_folded = true
 transform/pos = Vector2( 510.997, 317.701 )
 transform/scale = Vector2( 1.59043, 1.59043 )
 z/z = -2
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="SunSet"]
 
@@ -154,7 +164,7 @@ autoplay = "Time"
 transform/pos = Vector2( 510.997, 483.922 )
 transform/scale = Vector2( 1.59893, 1.33323 )
 z/z = -1
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
 
 [node name="Building1" type="StaticBody2D" parent="."]
 
@@ -173,7 +183,7 @@ bounce = 0.0
 [node name="Bulding_1" type="Sprite" parent="Building1"]
 
 transform/pos = Vector2( 229.295, 449.277 )
-texture = ExtResource( 7 )
+texture = ExtResource( 8 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Building1"]
 
@@ -199,7 +209,7 @@ bounce = 0.0
 [node name="Bulding_2" type="Sprite" parent="Building2"]
 
 transform/pos = Vector2( 396.608, 490.275 )
-texture = ExtResource( 8 )
+texture = ExtResource( 9 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Building2"]
 
@@ -225,7 +235,7 @@ bounce = 0.0
 [node name="Bulding_3" type="Sprite" parent="Building3"]
 
 transform/pos = Vector2( 652.565, 488.059 )
-texture = ExtResource( 9 )
+texture = ExtResource( 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Building3"]
 
@@ -234,6 +244,22 @@ shape = SubResource( 5 )
 trigger = false
 _update_shape_index = 0
 
-[node name="Player" parent="." instance=ExtResource( 10 )]
+[node name="Joshep" parent="." instance=ExtResource( 11 )]
+
+flag = Color( 1, 0.480469, 0.480469, 1 )
+
+[node name="gui" parent="." instance=ExtResource( 12 )]
+
+[node name="SamplePlayer2D" type="SamplePlayer2D" parent="."]
+
+params/volume_db = 0.0
+params/pitch_scale = 1.0
+params/attenuation/min_distance = 1.0
+params/attenuation/max_distance = 2048.0
+params/attenuation/distance_exp = 1.0
+config/polyphony = 1
+config/samples = null
+config/pitch_random = 0.0
 
 
+[editable path="gui"]
